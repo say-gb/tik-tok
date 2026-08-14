@@ -1,0 +1,35 @@
+name: 칼럼 초안 자동 생성
+
+on:
+  schedule:
+    - cron: '0 0 * * 1' # 매주 월요일 09:00 KST (UTC 00:00)
+  workflow_dispatch: {}
+
+jobs:
+  draft-column:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            --allowedTools Bash,Read
+          prompt: |
+            `낭만클럽-세팅/CLAUDE.md`의 말투 규칙과
+            `낭만클럽-세팅/.claude/skills/칼럼/SKILL.md`의 칼럼 스킬을 읽고,
+            이번 주 칼럼 초안을 작성해줘.
+
+            결과물에는 다음이 포함되어야 해:
+            - 제목 후보 5개
+            - 본문 구조
+            - 바로 복붙 가능한 완성 원고
+
+            작성이 끝나면 다음 명령으로 GitHub 이슈를 생성해:
+            gh issue create --title "[칼럼 초안] $(date +%Y-%m-%d)" --body "<작성한 결과물 전체>" --label "칼럼"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
