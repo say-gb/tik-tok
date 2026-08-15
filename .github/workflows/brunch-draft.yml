@@ -45,6 +45,6 @@ jobs:
             - 참고한 출처 목록
 
             작성이 끝나면 다음 명령으로 GitHub 이슈를 생성한다:
-            gh issue create --title "[브런치 초안] $(date +%Y-%m-%d)" --body "<작성한 결과물 전체>" --label "브런치"
+            gh issue create --title "[브런치 초안] $(TZ='Asia/Seoul' date +%Y-%m-%d)" --body "<작성한 결과물 전체>" --label "브런치"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
