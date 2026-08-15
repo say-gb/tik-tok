@@ -1,0 +1,50 @@
+name: 브런치 연재 초안
+
+on:
+  schedule:
+    - cron: '0 0 * * 4' # 매주 목요일 09:00 KST (UTC 00:00)
+  workflow_dispatch: {}
+
+jobs:
+  draft-brunch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          claude_args: |
+            --allowedTools Bash,Read,WebSearch,WebFetch
+          prompt: |
+            아래 파일들을 먼저 읽어라.
+            - `낭만클럽-세팅/CLAUDE.md` (말투·정체성 규칙)
+            - `낭만클럽-세팅/.claude/skills/브런치/SKILL.md` (연재 규칙 — 구조를 그대로 따른다)
+            - `낭만클럽-세팅/브런치/` 폴더의 기존 화 전부 (톤과 화수 이어가기)
+
+            연재 「그 음식은 어떻게 팔리게 됐나」의 다음 화 초안을 쓴다.
+
+            순서:
+            1. 오늘 날짜·절기·계절 식재료를 검색해서 확인한다.
+            2. 시의성 있는 소재 중 "팔리게 된 과정이 재밌는 음식"을 하나 고른다.
+               기존 화에서 다룬 소재는 피한다.
+            3. 역사·유래·연도를 검색해서 확인한다. 설이 갈리면 갈린다고 쓴다.
+               검증 못 한 것은 [미검증]으로 표시한다.
+            4. 스킬의 11단계 구조 그대로 완성 원고를 쓴다.
+               개인 경험 도입부는 지어내지 말고 `[경험 슬롯: ...]`으로 비워두고,
+               어떤 장면을 채우면 되는지 안내를 붙인다.
+
+            결과물:
+            - 제목 후보 3개 (각각 반전형 훅 + 부제)
+            - 완성 원고 전체 (사진 지시 인라인 포함)
+            - [경험 슬롯] 채움 안내
+            - 참고한 출처 목록
+
+            작성이 끝나면 다음 명령으로 GitHub 이슈를 생성한다:
+            gh issue create --title "[브런치 초안] $(date +%Y-%m-%d)" --body "<작성한 결과물 전체>" --label "브런치"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
