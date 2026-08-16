@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Able Insight — Diet Card News (Dark)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap">
+  <style>
+    /* 다크 팔레트: 딥그린 바탕 / 아이보리 잉크 / 버건디 액센트 */
+    :root {
+      --green-deep: #10251E;   /* 카드 바탕 */
+      --green-panel: #18332A;  /* 패널 */
+      --line: #2C4A3F;
+      --ink: #F2EDDF;          /* 아이보리 */
+      --muted: #AEBFB2;
+      --faint: #83968A;
+      --accent: #D08794;       /* 액센트 글자용 밝힌 버건디 로즈 */
+      --burgundy: #8A2837;     /* 채움용 버건디 */
+      --dot: #1D3A30;
+    }
+    body { font-family: 'Pretendard', sans-serif; }
+    .font-mono-tech { font-family: 'JetBrains Mono', monospace; }
+    .card-ratio { width: 1080px; height: 1350px; }
+    .c-ink { color: var(--ink); }
+    .c-muted { color: var(--muted); }
+    .c-faint { color: var(--faint); }
+    .c-accent { color: var(--accent); }
+    .bg-accent { background-color: var(--burgundy); }
+    .bg-panel { background-color: var(--green-panel); }
+    .b-line { border-color: var(--line); }
+    .b-accent { border-color: rgba(208, 135, 148, 0.45); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-0 antialiased" style="background:#0B1B15;">
+  <div id="card-container" class="card-ratio border b-line p-16 flex flex-col justify-between relative overflow-hidden" style="background:var(--green-deep);">
+    <div class="absolute inset-0 bg-[radial-gradient(#1D3A30_1px,transparent_1px)] [background-size:24px_24px] opacity-60 pointer-events-none"></div>
+    <div class="flex justify-between items-center z-10 border-b b-line pb-8">
+      <div class="flex items-center gap-3">
+        <span class="w-3 h-3 rounded-full bg-accent"></span>
+        <span id="card-tag" class="font-mono-tech text-base tracking-wider c-muted font-bold uppercase">RESEARCH.METABOLISM</span>
+      </div>
+      <span id="card-index" class="font-mono-tech text-base font-bold c-muted bg-panel border b-line px-4 py-2 rounded-lg">01 / 07</span>
+    </div>
+    <div id="card-body" class="flex-1 z-10 flex flex-col justify-evenly gap-6"></div>
+    <div class="flex justify-between items-center z-10 border-t b-line pt-8 font-mono-tech text-base">
+      <span class="c-ink font-semibold tracking-wide">URBAN ABLE INSIGHT</span>
+      <span id="card-next" class="c-faint tracking-wider">SWIPE NEXT →</span>
+    </div>
+  </div>
+  <script>
+    const slides = [
+      {
+        tag: "PARADIGM SHIFT // 2026",
+        index: "01 / 07",
+        html: `
+          <div class="space-y-4">
+            <span class="font-mono-tech text-sm px-4 py-1.5 bg-panel border b-line c-muted rounded-md">DEATH OF CALORIE COUNTING</span>
+            <h1 class="text-6xl font-black c-ink leading-tight tracking-tight mt-2">
+              "덜 먹으면 빠진다?"<br>
+              다이어트 상식이 <span class="c-accent underline decoration-4 underline-offset-8">완전히 붕괴된</span> 이유
+            </h1>
+          </div>
+          <p class="text-2xl c-muted leading-relaxed mt-2">
+            칼로리만 줄인 다이어트는 몸의 반격을 부릅니다. 감량 1년이 지나도 식욕 호르몬은 원래대로 돌아오지 않았습니다. 체중을 결정하는 것은 의지가 아니라 <span class="c-ink font-semibold">대사 데이터와 혈당·인슐린 반응</span>입니다.
+          </p>
+          <div class="grid grid-cols-2 gap-6 pt-4">
+            <div class="bg-panel border b-line p-10 rounded-3xl">
+              <div class="text-5xl font-black c-accent font-mono-tech">-500kcal</div>
+              <div class="text-lg c-muted mt-2">감량 6년 후에도 지속된 하루 대사 억제량 (Obesity, 2016)</div>
+            </div>
+            <div class="bg-panel border b-line p-10 rounded-3xl">
+              <div class="text-5xl font-black c-ink font-mono-tech">INSULIN</div>
+              <div class="text-lg c-muted mt-2">지방 저장을 켜는 핵심 호르몬</div>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: "SYSTEM FAILURE // 02",
+        index: "02 / 07",
+        html: `
+          <h2 class="text-6xl font-black c-ink tracking-tight leading-snug">
+            적게 먹을수록<br>몸은 <span class="c-accent">'방어 모드'</span>로 들어간다
+          </h2>
+          <div class="space-y-6 text-2xl c-muted mt-2">
+            <div class="bg-panel border b-line p-10 rounded-3xl">
+              <div class="font-bold c-ink text-3xl mb-2 font-mono-tech">[01] 기초대사량 억제, 6년 지속</div>
+              <p class="c-muted">급격 감량자 14명 추적 결과, 6년 후에도 기초대사량이 시작 시점보다 하루 704kcal 낮았고, 체구성 변화를 감안해도 약 500kcal의 대사 억제가 남아 있었습니다. (Obesity, 2016)</p>
+            </div>
+            <div class="bg-panel border b-line p-10 rounded-3xl">
+              <div class="font-bold c-ink text-3xl mb-2 font-mono-tech">[02] 식욕 호르몬 왜곡, 1년 지속</div>
+              <p class="c-muted">평균 13.5kg 감량 후 1년이 지나도 포만감 호르몬(렙틴)은 낮고, 식욕 호르몬(그렐린)과 배고픔은 높은 상태가 유지됐습니다. (NEJM, 2011)</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: "CLINICAL EVIDENCE // 03",
+        index: "03 / 07",
+        html: `
+          <h2 class="text-6xl font-black c-ink tracking-tight leading-snug">
+            "같은 음식을 먹어도<br>혈당 반응은 <span class="c-accent">사람마다 다르다</span>"
+          </h2>
+          <div class="bg-panel border b-line p-10 rounded-3xl space-y-3">
+            <div class="font-mono-tech text-sm c-accent uppercase font-bold">Weizmann Institute · Cell (2015)</div>
+            <p class="text-2xl c-muted leading-relaxed">
+              800명의 일주일치 연속혈당과 46,898끼 식사를 분석한 결과, 동일한 식사에도 개인별 혈당 반응 편차가 매우 컸습니다. 장내 미생물과 대사 환경이 다르기 때문 — 모두에게 통하는 단일 식단 권고는 한계가 있다는 결론입니다.
+            </p>
+          </div>
+          <div class="bg-panel border b-line p-10 rounded-2xl flex items-center justify-between">
+            <span class="text-2xl c-muted font-medium">혈당 스파이크 발생</span>
+            <span class="font-mono-tech text-2xl c-accent font-bold">→ 인슐린 급증, 지방 저장 모드</span>
+          </div>
+        `
+      },
+      {
+        tag: "NEW STRATEGY // 04",
+        index: "04 / 07",
+        html: `
+          <h2 class="text-6xl font-black c-ink tracking-tight leading-snug">
+            2026 표준 솔루션:<br>
+            <span class="c-accent">'혈당 변동성(Variability)'</span> 통제
+          </h2>
+          <p class="text-2xl c-muted leading-relaxed">
+            굶어서 빼는 시대는 끝났습니다. 목표는 섭취량 압박이 아니라 식후 혈당 스파이크를 줄여 인슐린 분비를 안정시키는 것입니다.
+          </p>
+          <div class="bg-panel border b-accent p-10 rounded-3xl">
+            <div class="font-mono-tech text-sm font-bold c-accent">ZONE: FAT BURNING</div>
+            <p class="text-2xl c-ink mt-2 leading-relaxed">
+              인슐린은 지방 분해를 억제하는 호르몬입니다. 혈당 곡선이 완만해 인슐린이 낮게 유지되는 시간이 길수록, 몸이 <span class="font-bold">저장된 지방을 에너지원으로 쓰기 쉬운 상태</span>가 됩니다.
+            </p>
+          </div>
+        `
+      },
+      {
+        tag: "ACTION PROTOCOL // 05",
+        index: "05 / 07",
+        html: `
+          <h2 class="text-6xl font-black c-ink tracking-tight leading-snug">
+            내일부터 바로 실행하는<br><span class="c-accent">대사 최적화 3단계</span>
+          </h2>
+          <div class="space-y-6 text-lg">
+            <div class="bg-panel border b-line p-8 rounded-2xl flex items-center gap-5">
+              <span class="font-mono-tech font-bold c-accent text-4xl">01</span>
+              <div>
+                <div class="font-bold c-ink text-3xl">식사 순서 재배치</div>
+                <div class="c-muted text-xl">채소·단백질 먼저, 탄수화물 마지막 → 식후 30분 혈당 −29%, 60분 −37% (Diabetes Care, 2015)</div>
+              </div>
+            </div>
+            <div class="bg-panel border b-line p-8 rounded-2xl flex items-center gap-5">
+              <span class="font-mono-tech font-bold c-accent text-4xl">02</span>
+              <div>
+                <div class="font-bold c-ink text-3xl">마시는 당부터 배제</div>
+                <div class="c-muted text-xl">음료형 단순당은 흡수가 빨라 혈당을 가장 가파르게 올린다</div>
+              </div>
+            </div>
+            <div class="bg-panel border b-line p-8 rounded-2xl flex items-center gap-5">
+              <span class="font-mono-tech font-bold c-accent text-4xl">03</span>
+              <div>
+                <div class="font-bold c-ink text-3xl">식후 즉시 가볍게 걷기</div>
+                <div class="c-muted text-xl">앉아있는 대신 2~5분의 가벼운 걷기만으로도 식후 혈당·인슐린 완화 (Sports Medicine 메타분석, 2022)</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        tag: "FOODTECH INSIGHT // 06",
+        index: "06 / 07",
+        html: `
+          <h2 class="text-6xl font-black c-ink tracking-tight leading-snug">
+            CGM + AI 알고리즘<br>
+            <span class="c-accent">초개인화 푸드</span>의 개막
+          </h2>
+          <div class="bg-panel border b-line p-10 rounded-3xl space-y-6 text-2xl c-muted">
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-accent"></span>
+              <span><strong class="c-ink">연속혈당측정기(CGM)</strong>로 실시간 생체 반응 추적</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-accent"></span>
+              <span><strong class="c-ink">AI 식단 분석</strong>으로 개인별 혈당 반응 예측 — 와이즈만 연구소의 예측 알고리즘이 상용화의 출발점</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="w-2 h-2 rounded-full bg-accent"></span>
+              <span>개인 대사 맞춤형 <strong class="c-ink">식재료 정기 구독 모델</strong>과의 결합</span>
+            </div>
+          </div>
+          <div class="bg-panel border b-line p-10 rounded-2xl flex items-center justify-between">
+            <span class="font-mono-tech text-xl c-muted font-bold uppercase">Market Direction</span>
+            <span class="text-2xl c-accent font-bold">식단은 처방으로, 장보기는 구독으로</span>
+          </div>
+        `
+      },
+      {
+        tag: "CORE TAKEAWAY // 07",
+        index: "07 / 07",
+        html: `
+          <div class="space-y-4">
+            <span class="font-mono-tech text-sm px-4 py-1.5 bg-accent font-bold rounded-md" style="color:var(--ink);">CONCLUSION</span>
+            <h2 class="text-6xl font-black c-ink leading-tight tracking-tight mt-2">
+              다이어트는 참는 것이 아니라<br>
+              <span class="c-accent">'데이터 시스템'</span>입니다.
+            </h2>
+          </div>
+          <p class="text-2xl c-muted leading-relaxed mt-2">
+            무작정 굶지 마십시오. 내 혈당 반응을 이해하고 인슐린을 안정시킬 때, 몸은 지방을 저장하는 쪽에서 태우는 쪽으로 돌아섭니다.
+          </p>
+          <div class="bg-panel border b-line p-10 rounded-3xl text-center mt-4">
+            <p class="font-mono-tech text-base c-ink font-bold">SAVE THIS FOR YOUR NEXT MEAL</p>
+            <p class="text-sm c-faint mt-1">식사 전 저장해두고 꺼내보세요.</p>
+          </div>
+        `
+      }
+    ];
+
+    let current = 0;
+    const body = document.getElementById('card-body');
+    const tag = document.getElementById('card-tag');
+    const idx = document.getElementById('card-index');
+    const next = document.getElementById('card-next');
+
+    window.setSlide = function(i) {
+      current = i;
+      tag.innerText = slides[i].tag;
+      idx.innerText = slides[i].index;
+      body.innerHTML = slides[i].html;
+      next.innerText = (i === slides.length - 1) ? 'SAVE THIS POST' : 'SWIPE NEXT →';
+    };
+
+    window.setSlide(0);
+  </script>
+</body>
+</html>

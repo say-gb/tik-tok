@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 Diet Trend Card News</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    body { font-family: 'Pretendard', sans-serif; }
+    .card-ratio { width: 432px; height: 540px; } /* 1080x1350 비율 0.4 축소 */
+  </style>
+</head>
+<body class="bg-gray-950 text-white min-h-screen flex flex-col items-center justify-center p-6">
+
+  <!-- 슬라이드 컨테이너 -->
+  <div id="card-container" class="card-ratio bg-[#121212] border border-gray-800 rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden transition-all duration-300">
+
+    <!-- 상단 헤더 -->
+    <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+      <span id="card-category" class="text-xs font-bold tracking-widest text-orange-500 uppercase">TREND & SCIENCE</span>
+      <span id="card-number" class="text-xs font-mono text-gray-400">01 / 07</span>
+    </div>
+
+    <!-- 본문 내용 (동적 렌더링) -->
+    <div id="card-content" class="my-auto flex flex-col gap-4">
+      <!-- JavaScript로 주입 -->
+    </div>
+
+    <!-- 하단 푸터 -->
+    <div class="flex justify-between items-center border-t border-gray-800 pt-4">
+      <span class="text-xs font-bold text-gray-500 tracking-wider">URBAN ABLE RESEARCH</span>
+      <span class="text-xs text-gray-500 font-mono">SWIPE NEXT →</span>
+    </div>
+  </div>
+
+  <!-- 컨트롤러 -->
+  <div class="flex items-center gap-4 mt-6">
+    <button onclick="prevSlide()" class="px-5 py-2.5 bg-gray-900 border border-gray-700 hover:bg-gray-800 text-sm font-semibold rounded-lg transition-colors">이전</button>
+    <div id="dots" class="flex gap-2"></div>
+    <button onclick="nextSlide()" class="px-5 py-2.5 bg-orange-600 hover:bg-orange-500 text-sm font-semibold rounded-lg transition-colors">다음</button>
+  </div>
+
+  <script>
+    const slides = [
+      {
+        category: "TREND & SCIENCE",
+        num: "01 / 07",
+        html: `
+          <div class="inline-block px-3 py-1 bg-orange-500/10 border border-orange-500/30 rounded text-orange-400 text-xs font-bold w-fit">2026 DIET PARADIGM</div>
+          <h1 class="text-2xl font-black leading-tight mt-2 text-white">"칼로리 줄이고 덜 먹으면 빠진다?"<br><span class="text-orange-500">다이어트 상식</span>이 완전히 뒤집힌 이유</h1>
+          <p class="text-sm text-gray-400 leading-relaxed mt-2">95%가 요요를 겪었던 '칼로리 계산'의 종말. 이제는 '대사 데이터'가 체중을 결정합니다.</p>
+        `
+      },
+      {
+        category: "THE PROBLEM",
+        num: "02 / 07",
+        html: `
+          <h2 class="text-xl font-bold text-white">왜 덜 먹고 더 운동해도 살은 다시 찔까?</h2>
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 mt-2 space-y-2 text-sm text-gray-300">
+            <p><strong class="text-white">1. 기아 모드 진입:</strong> 극단적 칼로리 제한은 기초대사량을 최대 30% 급감시킵니다.</p>
+            <p><strong class="text-white">2. 호르몬 붕괴:</strong> 포만감 호르몬(렙틴)은 줄고 식욕 호르몬(그렐린)이 폭증합니다.</p>
+          </div>
+          <p class="text-xs text-orange-400 font-semibold mt-2">결론: 실패 원인은 의지가 아니라 '대사 신호 왜곡'입니다.</p>
+        `
+      },
+      {
+        category: "DATA & EVIDENCE",
+        num: "03 / 07",
+        html: `
+          <h2 class="text-xl font-bold text-white">"내 몸의 혈당 반응은 남들과 완전히 다르다"</h2>
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 mt-2 space-y-2 text-xs text-gray-300">
+            <p class="text-gray-400">이스라엘 와이즈만 연구소(Weizmann Institute) 데이터:</p>
+            <p class="text-sm font-semibold text-white">동일 음식 섭취 시 개인별 혈당 편차 <span class="text-orange-500">최대 4배</span></p>
+            <p class="mt-2 text-gray-400">혈당 스파이크 발생 → 잉여 포도당이 인슐린에 의해 즉각 체지방 축적</p>
+          </div>
+          <p class="text-xs text-gray-400 mt-2">체지방 축적의 핵심 스위치는 '칼로리 총량'이 아니라 '인슐린 스파이크'입니다.</p>
+        `
+      },
+      {
+        category: "CORE SOLUTION",
+        num: "04 / 07",
+        html: `
+          <h2 class="text-xl font-bold text-white">2026 핵심 해법:<br><span class="text-orange-500">혈당 변동성 완화</span></h2>
+          <p class="text-sm text-gray-300 leading-relaxed mt-2">음식을 굶는 것이 아니라, 섭취 후 인슐린 스파이크를 통제하는 '저속노화 식단'으로 전환해야 합니다.</p>
+          <div class="bg-orange-950/30 border border-orange-900/50 rounded-xl p-4 mt-3">
+            <p class="text-xs font-bold text-orange-400">FAT BURNING ZONE 유지</p>
+            <p class="text-xs text-gray-300 mt-1">혈당 곡선을 완만하게 유지할 때 인체는 탄수화물이 아닌 체지방을 주 에너지원으로 사용합니다.</p>
+          </div>
+        `
+      },
+      {
+        category: "ACTION PLAN",
+        num: "05 / 07",
+        html: `
+          <h2 class="text-xl font-bold text-white">내일부터 적용하는 혈당 최적화 3원칙</h2>
+          <div class="space-y-2 mt-3 text-xs">
+            <div class="bg-gray-900 p-3 rounded-lg border border-gray-800">
+              <span class="text-orange-500 font-bold">1. 식사 순서:</span> 채소/식이섬유 → 단백질 → 탄수화물
+            </div>
+            <div class="bg-gray-900 p-3 rounded-lg border border-gray-800">
+              <span class="text-orange-500 font-bold">2. 정제당 제거:</span> 단순당 배제 및 복합 탄수화물 전환
+            </div>
+            <div class="bg-gray-900 p-3 rounded-lg border border-gray-800">
+              <span class="text-orange-500 font-bold">3. 식후 15분:</span> 가벼운 보행으로 혈중 포도당 즉각 흡수
+            </div>
+          </div>
+        `
+      },
+      {
+        category: "FUTURE INSIGHT",
+        num: "06 / 07",
+        html: `
+          <h2 class="text-xl font-bold text-white">"AI와 생체 데이터가 결합된 초개인화 푸드테크"</h2>
+          <p class="text-xs text-gray-400 mt-1">연속혈당측정기(CGM)와 AI 비전 분석의 결합</p>
+          <div class="bg-gray-900 border border-gray-800 rounded-xl p-4 mt-3 space-y-2 text-xs text-gray-300">
+            <p>1. 식단 사진 촬영 시 개인별 예상 혈당 곡선 시뮬레이션</p>
+            <p>2. 부족한 미량 영양소 및 대체 식재료 실시간 매칭</p>
+            <p>3. 개인화 식단 정기 구독 모델의 대중화</p>
+          </div>
+        `
+      },
+      {
+        category: "SUMMARY & CTA",
+        num: "07 / 07",
+        html: `
+          <h2 class="text-2xl font-black text-white leading-tight">다이어트는 절제가 아니라<br><span class="text-orange-500">'데이터 시스템'</span>입니다.</h2>
+          <p class="text-sm text-gray-300 mt-3 leading-relaxed">몸을 굶주리게 하지 마십시오. 혈당 데이터를 이해하고 인슐린을 통제할 때 체지방 감량은 자연스럽게 따라옵니다.</p>
+          <div class="mt-6 border-t border-gray-800 pt-4 text-center">
+            <p class="text-xs text-gray-400">게시물을 저장해 두고 식사 전에 꺼내보세요.</p>
+          </div>
+        `
+      }
+    ];
+
+    let current = 0;
+    const content = document.getElementById('card-content');
+    const cat = document.getElementById('card-category');
+    const num = document.getElementById('card-number');
+    const dotsContainer = document.getElementById('dots');
+
+    function renderDots() {
+      dotsContainer.innerHTML = '';
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = `w-2 h-2 rounded-full transition-colors ${i === current ? 'bg-orange-500' : 'bg-gray-700'}`;
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function updateSlide() {
+      cat.innerText = slides[current].category;
+      num.innerText = slides[current].num;
+      content.innerHTML = slides[current].html;
+      renderDots();
+    }
+
+    function prevSlide() {
+      if (current > 0) { current--; updateSlide(); }
+    }
+
+    function nextSlide() {
+      if (current < slides.length - 1) { current++; updateSlide(); }
+    }
+
+    updateSlide();
+  </script>
+</body>
+</html>

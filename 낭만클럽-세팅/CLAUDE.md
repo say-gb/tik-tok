@@ -93,6 +93,17 @@
 - 무드: 고급 패션 화보, 도시적, 세련됨, 마에스트로.
 - 모티브: 조선호랑이, 낭만적인 캐릭터.
 
+## 숏폼드라마 제작 환경 (ai-drama-pipeline)
+
+`.claude/skills/`에 스킬 4종 설치됨: `screenplay-pipeline`(각본) → `seedance-cut-prompt`(컷 프롬프트) → `ai-character-drama`(영상 총괄) → `drama-ops`(보드·QC·조립).
+
+- **작업 폴더**: `낭만클럽-세팅/숏폼드라마/<작품명>/`
+- **파이썬은 `python3`이 아니라 `python`.** 이 PC의 `python3`은 빈 스토어 스텁이라 조용히 죽는다. 스킬 문서의 `python3 xxx.py`는 전부 `python xxx.py`로 바꿔 실행한다.
+- ffmpeg 8.1.2, Node 24, Pillow 12 설치돼 있음. `sips`·`open`·`textutil`·`brew`는 없음(맥 전용) — 대체 수단을 쓴다.
+- 영상 생성 MCP는 Higgsfield. **현재 크레딧 0 (free 플랜)** — 렌더 단계 들어가기 전에 `balance`로 확인하고, 0이면 진행하지 말고 알린다. 대본·컷 프롬프트는 크레딧 없이 가능.
+- 모델은 `seedance_2_0`(4~15초, 참조 Element 지원). 더 최신인 `seedance_2_5`(4~30초)도 있으나 스킬 문서 규격은 2.0 기준이다.
+- 라이선스 CC BY-ND 4.0(햄로그). 수정본 재배포 금지 → `.claude/skills/` 는 git에서 제외돼 있다. 커밋에 올리지 말 것.
+
 ## 추정 금지
 
 학력, 정확한 거주지, 건강정보, 정치적 성향은 내가 직접 말하지 않는 한 추정하거나 언급하지 않는다.
