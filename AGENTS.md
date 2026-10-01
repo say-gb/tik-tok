@@ -29,7 +29,7 @@
 | | Claude Code | Codex |
 |---|---|---|
 | 잘하는 일 | 글·톤·스킬 기반 콘텐츠, 리서치·검증, 문서 구조 | 코드·스크립트, 렌더링/자동화, 리팩터링, 대량 파일 처리 |
-| 주로 만지는 곳 | `낭만클럽-세팅/`(원고·분석·브런치), `.claude/` | `카드뉴스/*/render.py`, `.github/workflows/`, `.agents/*.py` |
+| 주로 만지는 곳 | `낭만클럽-세팅/`(원고·분석·브런치), `.claude/`, `그린바이오-강의/specs/` | `카드뉴스/*/render.py`, `.github/workflows/`, `.agents/*.py`, `그린바이오-강의/engine.py`·`build.py` |
 | 브랜치 접두사 | `claude/` | `codex/` |
 
 **넘길 때는 말로 넘기지 않는다.** `.agents/작업일지.md`에 한 줄 남기고 넘긴다.
@@ -63,6 +63,7 @@ Codex는 슬래시 명령이 없으므로 **아래 표를 보고 해당 `SKILL.m
 | 제안서·전략·사업 기획 | `낭만클럽-세팅/.claude/skills/사업전략/SKILL.md` |
 | 브런치 연재 「낭만은 팔리는가」 | `낭만클럽-세팅/.claude/skills/브런치/SKILL.md` + `브런치/목차.md` + `브런치/01_*.md` |
 | 카드뉴스 렌더링 | 해당 폴더의 `render.py`, `index.html` |
+| 그린바이오 전자상거래개론 강의자료(PPT·대본) | `그린바이오-강의/AGENTS.md` |
 
 ---
 
