@@ -1,8 +1,9 @@
 name: 칼럼 초안 자동 생성
 
 on:
-  schedule:
-    - cron: '0 0 * * 1' # 매주 월요일 09:00 KST (UTC 00:00)
+  # 2026-10-09 자동 실행 중지 (Claude 해지로 매번 실패). 다시 켜려면 아래 schedule 주석 해제.
+  # schedule:
+  #   - cron: '0 0 * * 1' # 매주 월요일 09:00 KST (UTC 00:00)
   workflow_dispatch: {}
 
 jobs:

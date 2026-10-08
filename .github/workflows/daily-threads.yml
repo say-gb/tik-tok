@@ -1,8 +1,9 @@
 name: 하루치 스레드 세트
 
 on:
-  schedule:
-    - cron: '0 20 * * *' # 매일 05:00 KST (UTC 20:00) — 아침 게시 전에 받아보도록
+  # 2026-10-09 자동 실행 중지 (Claude 해지로 매번 실패). 다시 켜려면 아래 schedule 주석 해제.
+  # schedule:
+  #   - cron: '0 20 * * *' # 매일 05:00 KST (UTC 20:00) — 아침 게시 전에 받아보도록
   workflow_dispatch: {}
 
 jobs:
